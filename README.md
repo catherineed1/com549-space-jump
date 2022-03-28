@@ -4,5 +4,4 @@ Run instructions
 
 ```
 cd space-jump && ./vendor/bin/sail up
-
 ```
