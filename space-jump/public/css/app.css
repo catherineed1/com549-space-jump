@@ -1,8 +1,7 @@
 body { 
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  }
-
+}
 .wrapper6 {
   display: grid;
   grid-template-columns: 100px 100px 100px 100px 100px 100px;
@@ -124,6 +123,28 @@ line-height: 25px;
 border-radius: 4px;
 }
 
+.header-right {
+  float: right;
+  color: black;
+  text-align: center;
+  padding: 50px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header-left {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 50px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 10px;
+}
+
 .header-start {
 background-color: dodgerblue;
 border: none;
@@ -135,9 +156,20 @@ display: inline-block;
 font-size: 16px;
 }
 
-.grid-holder{
-  overflow: hidden;
-  float: center;
-  background-color:black;
-  padding: 20px 10px;
+.board {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+.dice {
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
