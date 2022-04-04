@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SpaceJumpController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('start');
+    return view('index');
 });
+
+Route::post('diceRoll', [SpaceJumpController::class,'diceRollFunction']);
+Route::post('board', [SpaceJumpController::class,'generateBoard']);
