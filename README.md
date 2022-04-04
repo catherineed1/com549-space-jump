@@ -10,3 +10,6 @@ To run with node that updates with any change
 ```
 npm run watch
 ```
+go to: 
+
+http://127.0.0.1/
