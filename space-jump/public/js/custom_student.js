@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let size = 36;
+    var size = 6;
     let player1 = 1;
     let player2 = 1;
     let lastDie;
@@ -10,33 +10,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#boardControl').hide();
-
-    $("#gameBtn").on("click", function() {
-        alert('should init board');
-        if ($(this).hasClass('start')) {
-            var size = 36; //$("#gridSize").val();
-            var data = { gridSize: size };
-            if (size >= 6) {
-                initBoard(size);
-                buildBoard(size)
-            }
-
-        } else if ($(this).hasClass('reset')) {
-            resetBoard();
-        }
-    });
-
-    $("#gridSize").on("change", function() {
-        var size = $(this).val();
-
-        console.log(size);
-
-        if (size >= 5) {
-            buildBoard(size);
-        }
-    });
-
+    //dice roll function
     $("#rollDice").on("click", function() {
         $.ajax({
             type: "POST",
@@ -86,14 +60,28 @@ $(document).ready(function() {
         });
     });
 
+    $('#boardControl').hide();
+
+    $("#gameBtn").on("click", function() {
+        if ($(this).hasClass('start')) {
+            var data = { gridSize: size };
+            if (size >= 6) {
+                initBoard(data);
+            }
+
+        } else if ($(this).hasClass('reset')) {
+            resetBoard(data);
+        }
+    });
+
     function initBoard(data) {
         $.ajax({
             type: "POST",
             data: "boardSize=" + data,
-            url: "board",
+            url: "initBoard",
             success: function(jsonObj) {
                 console.log(jsonObj);
-                /* handle json repsonse and setup your board*/
+                buildBoard(size);
 
                 $("#gameBtn").html('Reset Game');
                 $("#gameBtn").removeClass("start");
@@ -105,15 +93,17 @@ $(document).ready(function() {
                     $("#diceLabel").html("Roll dice player 2");
                 }
 
-                if ( /* if game has been reset*/ player1 == 0) {
+                if (
+                    /*if game has been reset*/
+                    player1 == 0) {
                     $("#diceIcon").removeClass();
                     $("#diceIcon").addClass("fa-solid fa-dice-d6 fa-2x");
                 }
 
                 $('#boardControl').show();
 
-                $("#" + /*get P1 position*/ 1 + "P1").addClass("triangleP1");
-                $("#" + /*get P2 position*/ 1 + "P2").addClass("triangleP2");
+                $("#" + /*get P1 position*/ player1 + "P1").addClass("triangleP1");
+                $("#" + /*get P2 position*/ player2 + "P2").addClass("triangleP2");
 
 
             }
@@ -188,4 +178,14 @@ $(document).ready(function() {
             }
         }
     }
+
+    // $("#gridSize").on("change", function() {
+    //     var size = $(this).val();
+
+    //     console.log(size);
+
+    //     if (size >= 5) {
+    //         buildBoard(size);
+    //     }
+    // });
 });
