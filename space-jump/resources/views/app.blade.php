@@ -26,7 +26,9 @@
                 </div>
 
                 <div class="header-right">
-                        <button class="dice" id="rollDice">Dice</button><br><br>
+                        <button class="dice" id="rollDice">Dice</button>
+                        <p id="diceIcon">dice has been rolled</p><br><br>
+                        <p id="diceLabel"><br><br>
                 </div>
         </div> 
 
