@@ -12,38 +12,26 @@
         <div class="header">
                 <div class="header-center">
                         <h1>Space Jump</h1><br>
-                        <p>Enter 2 players and press start to begin the game.</p>
                 </div>
 
                 <div class="header-left">
-                        <form action="/action_page.php">
+                        <!-- <form action="/action_page.php">
                                 <label for="player1">Player 1:</label>
                                 <input type="text" id="player1" name="player1"><br><br>
                                 <label for="player2">Player 2:</label>
                                 <input type="text" id="player2" name="player2"><br><br>
                                 <input class="submit" type="submit" value="Submit players">
-                        </form><br><br>
-                        <button class="header-start" id="gameBtn">Start Game</button>
+                        </form><br><br> -->
+                        <button class="start" id="gameBtn">Start Game</button><br><br>
                 </div>
 
                 <div class="header-right">
-                        <p>Player 1 name goes here </p>
-                        <p>Player 2 name goes here</p>
-                        <br><br>
-                        <button class="dice" id="rollDice">Dice</button>
+                        <button class="dice" id="rollDice">Dice</button><br><br>
                 </div>
-        </div>
+        </div> 
 
-        <div id="board" class="board">
-               <p>Board goes here when start pressed</p>
-        </div>
-        <div id="gridWrapper"></div>
-        <div id="boardControl"></div>
-        <div id="gridSize"></div>
-        <div id="diceIcon"></div>
-        <div id="diceLabel"></div>
+        <div id="board"></div>
 
-        
         @yield('content')
     <script src="{{asset('js/custom_student.js')}}"></script>
 </body>
