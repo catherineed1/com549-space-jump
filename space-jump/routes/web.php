@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::post('diceRoll', [SpaceJumpController::class,'diceRollFunction']);
 Route::post('initBoard', [SpaceJumpController::class,'generateBoard']);
+Route::post('resetBoard', [SpaceJumpController::class,'resetBoard']);

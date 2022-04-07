@@ -1,8 +1,16 @@
 $(document).ready(function() {
     var size = 6;
-    let player1 = 1;
-    let player2 = 1;
-    let lastDie;
+    var player1;
+    var player1Position;
+    var player2;
+    var player2Position;
+    var diceThrow;
+    var updatedPosP1;
+    var updatedPosP2;
+    var currentplayer;
+    var data;
+
+    $('.header-right').hide();
 
     $.ajaxSetup({
         headers: {
@@ -10,63 +18,119 @@ $(document).ready(function() {
         }
     });
 
-    //dice roll function
-    $("#rollDice").on("click", function() {
-        $.ajax({
-            type: "POST",
-            cache: false,
-            url: "diceRoll",
-            success: function(jsonObj) {
-                console.log(jsonObj);
+    function initDie() {
+        $('.header-right').show();
 
-                $("#diceIcon").removeClass();
+        $("#rollDice").on("click", function() {
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "diceRoll",
+                success: function(jsonObj) {
+                    console.log("dice roll: " + jsonObj);
 
-                if ( /*P1's turn*/ player1 == 1) {
-                    $("#diceLabel").html("Roll dice player 1");
-                } else if ( /*P2's turn*/ player2 == 1) {
-                    $("#diceLabel").html("Roll dice player 2");
+                    diceThrow = parseInt(jsonObj);
+                    $("#diceLabel").html(diceThrow);
+
+                    player1 = $('div.triangleP1').attr('id');
+                    player1Position = player1.substring(0, player1.indexOf('P'));
+                    player2 = $('div.triangleP2').attr('id');
+                    player2Position = player2.substring(0, player2.indexOf('P'));
+
+                    $('#diceIcon').show();
+                    $("#diceIcon").removeClass();
+
+                    if (parseInt(player1Position) == 3 || parseInt(player2Position) == 3) {
+                        wormhole();
+                    } else if (parseInt(player1Position) == 13 || parseInt(player2Position) == 13) {
+                        wormhole();
+                    } else if (parseInt(player1Position) == 21 || parseInt(player2Position) == 21) {
+                        wormhole();
+                    } else
+                    if (parseInt(player1Position) == 28 || parseInt(player2Position) == 28) {
+                        blackhole();
+                    } else if (parseInt(player1Position) == 11 || parseInt(player2Position) == 11) {
+                        blackhole();
+                    } else {
+                        switch (diceThrow) {
+                            case 1:
+                                $("#diceIcon").addClass("fa-dice-one");
+                                movePlayer();
+                                break;
+                            case 2:
+                                $("#diceIcon").addClass("fa-dice-two");
+                                movePlayer();
+                                break;
+                            case 3:
+                                $("#diceIcon").addClass("fa-dice-three");
+                                movePlayer();
+                                break;
+                            case 4:
+                                $("#diceIcon").addClass("fa-dice-four");
+                                movePlayer();
+                                break;
+                            case 5:
+                                $("#diceIcon").addClass("fa-dice-five");
+                                movePlayer();
+                                break;
+                            case 6:
+                                $("#diceIcon").addClass("fa-dice-six");
+                                movePlayer();
+                                break;
+                        }
+                    }
                 }
-
-                $("#diceIcon").addClass("fa-solid");
-                switch ( /* last dice rolled*/ lastDie) {
-                    case 1:
-                        $("#diceIcon").addClass("fa-dice-one");
-                        break;
-                    case 2:
-                        $("#diceIcon").addClass("fa-dice-two");
-                        break;
-                    case 3:
-                        $("#diceIcon").addClass("fa-dice-three");
-                        break;
-                    case 4:
-                        $("#diceIcon").addClass("fa-dice-four");
-                        break;
-                    case 5:
-                        $("#diceIcon").addClass("fa-dice-five");
-                        break;
-                    case 6:
-                        $("#diceIcon").addClass("fa-dice-six");
-                        break;
-                }
-                $("#diceIcon").addClass("fa-3x");
-
-                $("#" + /*get P1 position*/ 1 + "P1").removeClass("triangleP1");
-                $("#" + /*get P1 position*/ 1 + "P1").addClass("triangleP1");
-                $("#" + /*get P2 position*/ 1 + "P2").removeClass("triangleP2");
-                $("#" + /*get P2 position*/ 1 + "P2").addClass("triangleP2");
-
-
-            }
+            });
         });
-    });
 
+    }
     $('#boardControl').hide();
+
+    function movePlayer() {
+        if (parseInt(player1Position) == 36) {
+            alert("Player 1 is the winner!");
+        } else if (parseInt(player2Position) == 36) {
+            alert("Player 2 is the winner!");
+        } else {
+            currentplayer = $("#currentPlayer").html();
+            console.log("current player: " + currentplayer);
+            switch (currentplayer) {
+                case "Player 1":
+                    $("#" + player1Position + "P1").removeClass("triangleP1");
+                    console.log("Players position: " + player1Position);
+                    updatedPosP1 = parseInt(player1Position) + parseInt(diceThrow);
+                    if (updatedPosP1 > 36) {
+                        alert("Move not possible");
+                        $("#" + (player1Position) + "P1").addClass("triangleP1");
+                    } else {
+                        console.log("New position will be: " + updatedPosP1);
+                        $("#" + (updatedPosP1) + "P1").addClass("triangleP1");
+                    }
+                    $("#currentPlayer").html("Player 2");
+                    break;
+                case "Player 2":
+                    $("#" + player2Position + "P2").removeClass("triangleP2");
+                    console.log("Players position: " + player2Position);
+                    updatedPosP2 = parseInt(player2Position) + parseInt(diceThrow);
+                    if (updatedPosP2 > 36) {
+                        alert("Move not possible");
+                        $("#" + (player2Position) + "P2").addClass("triangleP2");
+                    } else {
+                        console.log("New position will be: " + updatedPosP2);
+                        $("#" + (updatedPosP2) + "P2").addClass("triangleP2");
+                    }
+                    $("#currentPlayer").html("Player 1");
+                    break;
+            }
+        }
+    }
 
     $("#gameBtn").on("click", function() {
         if ($(this).hasClass('start')) {
-            var data = { gridSize: size };
+            data = { gridSize: size };
             if (size >= 6) {
                 initBoard(data);
+                initDie();
             }
 
         } else if ($(this).hasClass('reset')) {
@@ -87,24 +151,8 @@ $(document).ready(function() {
                 $("#gameBtn").removeClass("start");
                 $("#gameBtn").addClass("reset");
 
-                if ( /*P1's turn*/ player1 == 1) {
-                    $("#diceLabel").html("Roll dice player 1");
-                } else if ( /*P2's turn*/ player2 == 1) {
-                    $("#diceLabel").html("Roll dice player 2");
-                }
-
-                if (
-                    /*if game has been reset*/
-                    player1 == 0) {
-                    $("#diceIcon").removeClass();
-                    $("#diceIcon").addClass("fa-solid fa-dice-d6 fa-2x");
-                }
-
-                $('#boardControl').show();
-
-                $("#" + /*get P1 position*/ player1 + "P1").addClass("triangleP1");
-                $("#" + /*get P2 position*/ player2 + "P2").addClass("triangleP2");
-
+                $("#" + 1 + "P1").addClass("triangleP1");
+                $("#" + 1 + "P2").addClass("triangleP2");
 
             }
         });
@@ -113,10 +161,17 @@ $(document).ready(function() {
     function resetBoard(data) {
         $.ajax({
             type: "POST",
-
             cache: false,
-            url: "php/resetBoard.php",
+            url: "resetBoard",
             success: function(jsonObj) {
+                console.log(jsonObj);
+
+                diceThrow = 0;
+                updatedPosP1 = 0;
+                updatedPosP2 = 0;
+
+                $(".header-right").hide();
+                $("#diceLabel").html('');
                 $("#board").empty();
                 $("#gameBtn").html('Start Game');
                 $("#gameBtn").removeClass("reset");
@@ -126,7 +181,6 @@ $(document).ready(function() {
             }
         });
     }
-
 
     function buildBoard(size) {
         $("#board").empty();
@@ -147,6 +201,7 @@ $(document).ready(function() {
                 $("#" + x).append("<label>" + x + "</label>");
                 $("#" + x).append("<div id=" + x + "P1></div>");
                 $("#" + x).append("<div id=" + x + "P2></div>");
+
 
                 for (let y = 0; y < size - 1; y++) {
                     x = x + 1;
@@ -179,13 +234,39 @@ $(document).ready(function() {
         }
     }
 
-    // $("#gridSize").on("change", function() {
-    //     var size = $(this).val();
+    function wormhole() {
+        alert("You landed on a wormhole +7 spaces");
+        var wormhole;
+        switch (currentplayer) {
+            case "Player 1":
+                $("#" + player1Position + "P1").removeClass("triangleP1");
+                wormhole = parseInt(player1Position) + 7;
+                $("#" + (wormhole) + "P1").addClass("triangleP1");
+                break;
+            case "Player 2":
+                $("#" + player2Position + "P2").removeClass("triangleP2");
+                wormhole = parseInt(player2Position) + 7;
+                $("#" + (wormhole) + "P2").addClass("triangleP2");
+                break;
+        }
 
-    //     console.log(size);
+    }
 
-    //     if (size >= 5) {
-    //         buildBoard(size);
-    //     }
-    // });
+    function blackhole() {
+        alert("You landed on a blackhole -5 spaces");
+        var blackhole;
+        switch (currentplayer) {
+            case "Player 1":
+                $("#" + player1Position + "P1").removeClass("triangleP1");
+                blackhole = parseInt(player1Position) - 5;
+                $("#" + (blackhole) + "P1").addClass("triangleP1");
+                break;
+            case "Player 2":
+                $("#" + player2Position + "P2").removeClass("triangleP2");
+                blackhole = parseInt(player2Position) - 5;
+                $("#" + (blackhole) + "P2").addClass("triangleP2");
+                break;
+        }
+
+    }
 });

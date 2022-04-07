@@ -11,6 +11,10 @@ class SpaceJumpController extends Controller
     }
 
     public function generateBoard(){
-        return 'Success';
+        return 'Board generated';
+    }
+
+    public function resetBoard(){
+        return 'Board reset';
     }
 }
