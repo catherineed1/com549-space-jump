@@ -15,20 +15,15 @@
                 </div>
 
                 <div class="header-left">
-                        <!-- <form action="/action_page.php">
-                                <label for="player1">Player 1:</label>
-                                <input type="text" id="player1" name="player1"><br><br>
-                                <label for="player2">Player 2:</label>
-                                <input type="text" id="player2" name="player2"><br><br>
-                                <input class="submit" type="submit" value="Submit players">
-                        </form><br><br> -->
+                        <!-- <input type="text" id="P1" value=""><br><br>
+                        <input type="text" id="P2" value=""><br><br> -->
                         <button class="start" id="gameBtn">Start Game</button><br><br>
                 </div>
 
                 <div class="header-right">
-                        <button class="dice" id="rollDice">Dice</button>
-                        <p id="diceIcon">dice has been rolled</p><br><br>
-                        <p id="diceLabel"><br><br>
+                        <label> Current player is: </label><label id="currentPlayer">Player 1</label><br><br>
+                        <button class="dice" id="rollDice">Roll dice</button><br><br>
+                        <label>The last roll was a: </label> <label id="diceLabel"></label><br><br><label id="diceIcon">
                 </div>
         </div> 
 
