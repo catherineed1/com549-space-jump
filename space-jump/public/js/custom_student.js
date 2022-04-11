@@ -10,6 +10,7 @@ $(document).ready(function() {
     var currentplayer;
     var data;
 
+    getLeaderboard();
     $('.boardControl').hide();
 
     $.ajaxSetup({
@@ -18,9 +19,33 @@ $(document).ready(function() {
         }
     });
 
+    function getLeaderboard() {
+        $.ajax({
+            type: "GET",
+            url: "getDBinfo",
+            dataType: 'json',
+            success: function(jsonObj) {
+                console.log(jsonObj);
+                $("#getLeaderboard").on("click", function() {
+                    $.each(jsonObj, function(i, val) {
+                        $("#leaderboard").append(
+                            '<tr><td>' + val.player_name +
+                            '</td><td>' + val.num_of_games_played +
+                            '</td><td>' + val.num_of_games_won +
+                            '</td><td>' + val.num_of_games_lost +
+                            '</td></tr>'
+                        );
+
+                    });
+                });
+
+            }
+        });
+    }
+
+
     function initDie() {
         $('.boardControl').show();
-
         $("#rollDice").on("click", function() {
             $.ajax({
                 type: "POST",
@@ -52,6 +77,7 @@ $(document).ready(function() {
                     } else if (parseInt(player1Position) == 11 || parseInt(player2Position) == 11) {
                         blackhole();
                     } else {
+                        $("#diceIcon").addClass("fa-solid");
                         switch (diceThrow) {
                             case 1:
                                 $("#diceIcon").addClass("fa-dice-one");
@@ -78,6 +104,7 @@ $(document).ready(function() {
                                 movePlayer();
                                 break;
                         }
+                        $("#diceIcon").addClass("fa-3x");
                     }
                 }
             });
@@ -105,6 +132,7 @@ $(document).ready(function() {
                         console.log("New position will be: " + updatedPosP1);
                         $("#" + (updatedPosP1) + "P1").addClass("triangleP1");
                     }
+                    $("#playerName").html(getPlayer2());
                     $("#currentPlayer").html("Player 2");
                     break;
                 case "Player 2":
@@ -118,6 +146,7 @@ $(document).ready(function() {
                         console.log("New position will be: " + updatedPosP2);
                         $("#" + (updatedPosP2) + "P2").addClass("triangleP2");
                     }
+                    $("#playerName").html(getPlayer1());
                     $("#currentPlayer").html("Player 1");
                     break;
             }
@@ -130,6 +159,10 @@ $(document).ready(function() {
             if (size >= 6) {
                 initBoard(data);
                 initDie();
+                getPlayer1();
+                getPlayer2();
+                $("#playerName").html(getPlayer1());
+                $("#currentPlayer").html("Player 1");
             }
 
         } else if ($(this).hasClass('reset')) {
@@ -153,6 +186,8 @@ $(document).ready(function() {
                 $("#" + 1 + "P1").addClass("triangleP1");
                 $("#" + 1 + "P2").addClass("triangleP2");
 
+
+
             }
         });
     }
@@ -165,16 +200,11 @@ $(document).ready(function() {
             success: function(jsonObj) {
                 console.log(jsonObj);
 
-                diceThrow = 0;
-                updatedPosP1 = 0;
-                updatedPosP2 = 0;
-
-                $(".header-right").hide();
-                $("#diceLabel").html('');
                 $("#board").empty();
                 $("#gameBtn").html('Start Game');
                 $("#gameBtn").removeClass("reset");
                 $("#gameBtn").addClass("start");
+                $('#boardControl').hide();
                 $("#gridSize").val("-1");
             }
         });
@@ -266,5 +296,13 @@ $(document).ready(function() {
                 break;
         }
 
+    }
+
+    function getPlayer1() {
+        return $("#player1").val();
+    }
+
+    function getPlayer2() {
+        return $("#player2").val();
     }
 });

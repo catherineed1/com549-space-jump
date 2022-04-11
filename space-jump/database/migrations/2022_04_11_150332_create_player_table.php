@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('player', function (Blueprint $table) {
             $table->id();
             $table->string('player_name');
-            $table->integer('last_position');
-            $table->integer('last_dice_roll');
+            $table->integer('num_of_games_played');
+            $table->integer('num_of_games_won');
+            $table->integer('num_of_games_lost');
         });
     }
 

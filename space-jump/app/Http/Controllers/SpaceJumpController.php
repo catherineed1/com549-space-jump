@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-
 class SpaceJumpController extends Controller
 {
     
@@ -13,18 +12,15 @@ class SpaceJumpController extends Controller
     }
 
     public function generateBoard(){
-        return 'Board generated';
+        return 'Board Generated';
     }
 
     public function resetBoard(){
         return 'Board reset';
     }
 
-    public function getPlayer1(){
-
+    public function getCurrentDBInfo(){
+        return DB::table('player')->orderBy('num_of_games_won', 'desc')->get();
     }
 
-    public function getPlayer2(){
-        
-    }
 }
