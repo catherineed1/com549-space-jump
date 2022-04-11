@@ -1,23 +1,22 @@
 body {
     margin: 40px;
-  }
+}
 
-  .wrapper6 {
+.wrapper6 {
     display: grid;
     grid-template-columns: 100px 100px 100px 100px 100px 100px;
     grid-gap: 3px;
     background-color: #fff;
     color: #444;
-  }
+}
 
-  .wrapper8 {
+.wrapper8 {
     display: grid;
     grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px;
     grid-gap: 3px;
     background-color: #fff;
     color: #444;
-  }
-  
+}
 
 .wrapper10 {
     display: grid;
@@ -25,61 +24,60 @@ body {
     grid-gap: 3px;
     background-color: #fff;
     color: #444;
-  }
-  
-  .oddBox {
-    background-color: rgb(156, 191, 106);    
+}
+
+.oddBox {
+    background-color: rgb(156, 191, 106);
     color: #fff;
     border-radius: 5px;
     padding: 20px;
-    font-size: 75%; 
-    text-align: center;   
-  }
-
-  .oddBox label {
-    color: rgb(18, 17, 17);    
-    padding: 0 0px;
-    position: relative;    
-    /* Adjust these values to posiytion the title or label */
-    top: -20px;
-    left: -35px;
-  }
-
-  .evenBox {
-    background-color:  rgb(137, 28, 154);
-    color: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    font-size: 75%;    
+    font-size: 75%;
     text-align: center;
-  }
+}
 
-  .evenBox label {
-    color: white;    
+.oddBox label {
+    color: rgb(18, 17, 17);
     padding: 0 0px;
-    position: relative;    
+    position: relative;
     /* Adjust these values to posiytion the title or label */
     top: -20px;
     left: -35px;
-  }
+}
 
-  .diceBtn {
+.evenBox {
+    background-color: rgb(137, 28, 154);
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 75%;
+    text-align: center;
+}
+
+.evenBox label {
+    color: white;
+    padding: 0 0px;
+    position: relative;
+    /* Adjust these values to posiytion the title or label */
+    top: -20px;
+    left: -35px;
+}
+
+.diceBtn {
     background-color: rgb(115, 162, 111);
     border: none;
     color: white;
     padding: 12px 16px;
     font-size: 16px;
     cursor: pointer;
-  }
+}
 
-  .triangles {
+.triangles {
     position: relative;
-    
     border-radius: 12px;
     overflow: hidden;
-  }
-  
-  .triangleP1:after {
+}
+
+.triangleP1:after {
     content: '';
     width: 0;
     height: 0;
@@ -89,9 +87,9 @@ body {
     right: 0;
     top: 0;
     position: absolute;
-  } 
-  
-  .triangleP2:after {
+}
+
+.triangleP2:after {
     content: '';
     width: 0;
     height: 0;
@@ -101,4 +99,57 @@ body {
     right: 0;
     bottom: 0;
     position: absolute;
-  }
+}
+
+.header-top {
+    float: center;
+    font-family: Arial;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+.startControl {
+    font-family: Arial;
+    color: black;
+    text-align: center;
+}
+
+.boardControl {
+    font-family: Arial;
+    color: black;
+    text-align: center;
+}
+
+.start {
+    background-color: rgb(30, 27, 211);
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.reset {
+    background-color: rgb(30, 27, 211);
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

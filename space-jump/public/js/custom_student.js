@@ -10,7 +10,7 @@ $(document).ready(function() {
     var currentplayer;
     var data;
 
-    $('.header-right').hide();
+    $('.boardControl').hide();
 
     $.ajaxSetup({
         headers: {
@@ -19,7 +19,7 @@ $(document).ready(function() {
     });
 
     function initDie() {
-        $('.header-right').show();
+        $('.boardControl').show();
 
         $("#rollDice").on("click", function() {
             $.ajax({
@@ -84,7 +84,6 @@ $(document).ready(function() {
         });
 
     }
-    $('#boardControl').hide();
 
     function movePlayer() {
         if (parseInt(player1Position) == 36) {
@@ -176,7 +175,6 @@ $(document).ready(function() {
                 $("#gameBtn").html('Start Game');
                 $("#gameBtn").removeClass("reset");
                 $("#gameBtn").addClass("start");
-                $('#boardControl').hide();
                 $("#gridSize").val("-1");
             }
         });
