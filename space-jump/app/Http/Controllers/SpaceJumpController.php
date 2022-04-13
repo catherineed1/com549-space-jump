@@ -19,6 +19,20 @@ class SpaceJumpController extends Controller
         return 'Board reset';
     }
 
+    public function generateWormholes(){
+        $wormholes = array(3, 13, 21);
+        return $wormholes;
+    }
+
+    public function generateBlackholes(){
+        $blackholes = array(28,11);
+        return $blackholes;
+    }
+
+    public function updateDB(){
+        
+    }
+
     public function getCurrentDBInfo(){
         return DB::table('player')->orderBy('num_of_games_won', 'desc')->get();
     }

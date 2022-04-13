@@ -43,7 +43,6 @@ $(document).ready(function() {
         });
     }
 
-
     function initDie() {
         $('.boardControl').show();
         $("#rollDice").on("click", function() {
@@ -155,7 +154,9 @@ $(document).ready(function() {
 
     $("#gameBtn").on("click", function() {
         if ($(this).hasClass('start')) {
-            data = { gridSize: size };
+            data = {
+                gridSize: size
+            };
             if (size >= 6) {
                 initBoard(data);
                 initDie();
@@ -185,9 +186,6 @@ $(document).ready(function() {
 
                 $("#" + 1 + "P1").addClass("triangleP1");
                 $("#" + 1 + "P2").addClass("triangleP2");
-
-
-
             }
         });
     }
