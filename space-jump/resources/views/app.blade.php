@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="header-top">
-                <h1>Space Jump</h1><br>
+                <h1 name="title">Space Jump</h1><br>
                 <h6>Enter names for player 1 and player 2 and press 'start game'. When the game starts press the 'roll dice' button to take your turn.</h6>
                 <h6>To view the leaderboard press the 'leaderboard' button.</h6><br>
         </div>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col">
                                         <div class="boardControl">
-                                                <button class="diceBtn" id="rollDice">Roll dice</button><br><br>
+                                                <button class="diceBtn" id="rollDice" >Roll dice</button><br><br>
                                                 <label id="currentPlayer"></label><br><label>  is: </label><br><label id="playerName"></label><br><br>
                                                 <label>The last roll was a: </label> <label id="diceLabel"></label><br><br>
                                                 <i id="diceIcon"></i>
@@ -47,9 +47,10 @@
                                 <thead>
                                         <tr>
                                         <th id="pname" scope="col">Player Name</th>
-                                        <th id="gameP" scope="col">Num of Games Played</th>
-                                        <th id="gameW"  scope="col">Num of Games Won</th>
-                                        <th id="gameL"  scope="col">Num of Games Lost</th>
+                                        <th id="gameP" scope="col">Number of Games Played</th>
+                                        <th id="gameW"  scope="col">Number of Games Won</th>
+                                        <th id="gameL"  scope="col">Number of Games Lost</th>
+                                        <th id="gameL"  scope="col">Win/Loose Ratio (%)</th>
                                         </tr>
                                 </thead>
                                 <tbody> 
