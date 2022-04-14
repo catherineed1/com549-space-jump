@@ -16,7 +16,7 @@ class SpaceJumpController extends Controller
     }
 
     public function resetBoard(){
-        return 'Board reset';
+        return 'Game reset';
     }
 
     public function newPositionPlayer1(Request $request){
