@@ -53,7 +53,11 @@ $(document).ready(function() {
                     console.log("dice roll: " + jsonObj);
 
                     diceThrow = parseInt(jsonObj);
-                    $("#diceLabel").html(diceThrow);
+
+                    $("#activityLog").append(
+                        '<tr><td>' + "Last dice rolled is: " + diceThrow +
+                        '</td></tr>'
+                    );
 
                     player1 = $('div.triangleP1').attr('id');
                     player1Position = player1.substring(0, player1.indexOf('P'));
@@ -133,26 +137,34 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 data: {
-                    player1: "Bill",
-                    player2: "Sarah"
+                    player1: getPlayer1(),
+                    player2: getPlayer2()
                 },
                 url: "dbP1WdbP2L",
                 success: function(jsonObj) {
                     console.log(jsonObj);
                     alert("Player 1 is the winner!");
+                    $("#activityLog").append(
+                        '<tr><td>' + "Player 1 is the Winner!" +
+                        '</td></tr>'
+                    );
                 }
             });
         } else if (parseInt(player2Position) == 36) {
             $.ajax({
                 type: "POST",
                 data: {
-                    player1: "Bill",
-                    player2: "Sarah"
+                    player1: getPlayer1(),
+                    player2: getPlayer2()
                 },
                 url: "dbP1LdbP2W",
                 success: function(jsonObj) {
                     console.log(jsonObj);
                     alert("Player 2 is the winner!");
+                    $("#activityLog").append(
+                        '<tr><td>' + "Player 2 is the Winner!" +
+                        '</td></tr>'
+                    );
                 }
             });
         } else {
@@ -172,9 +184,17 @@ $(document).ready(function() {
                             console.log("Players position: " + player1Position);
                             if (newPosP1 > 36) {
                                 alert("Move not possible");
+                                $("#activityLog").append(
+                                    '<tr><td>' + "Move not possible" +
+                                    '</td></tr>'
+                                );
                                 $("#" + (player1Position) + "P1").addClass("triangleP1");
                             } else {
                                 console.log("New position will be: " + newPosP1);
+                                $("#activityLog").append(
+                                    '<tr><td>' + "Player 1's position is now: " + newPosP1 +
+                                    '</td></tr>'
+                                );
                                 $("#" + (newPosP1) + "P1").addClass("triangleP1");
                             }
                             $("#playerName").html(getPlayer2());
@@ -195,9 +215,17 @@ $(document).ready(function() {
                             console.log("Players position: " + player2Position);
                             if (newPosP2 > 36) {
                                 alert("Move not possible");
+                                $("#activityLog").append(
+                                    '<tr><td>' + "Move not possible" +
+                                    '</td></tr>'
+                                );
                                 $("#" + (player2Position) + "P2").addClass("triangleP2");
                             } else {
                                 console.log("New position will be: " + newPosP2);
+                                $("#activityLog").append(
+                                    '<tr><td>' + "Player 2's position is now: " + newPosP2 +
+                                    '</td></tr>'
+                                );
                                 $("#" + (newPosP2) + "P2").addClass("triangleP2");
                             }
                             $("#playerName").html(getPlayer1());
@@ -217,10 +245,6 @@ $(document).ready(function() {
             if (size >= 6) {
                 initBoard(data);
                 initDie();
-                getPlayer1();
-                getPlayer2();
-                $("#playerName").html(getPlayer1());
-                $("#currentPlayer").html("Player 1");
             }
 
         } else if ($(this).hasClass('reset')) {
@@ -231,10 +255,6 @@ $(document).ready(function() {
     function initBoard(data) {
         $.ajax({
             type: "POST",
-            data: {
-                data: data,
-                player1: 'catherine'
-            },
             url: "initBoard",
             success: function(jsonObj) {
                 console.log(jsonObj);
@@ -246,6 +266,16 @@ $(document).ready(function() {
 
                 $("#" + 1 + "P1").addClass("triangleP1");
                 $("#" + 1 + "P2").addClass("triangleP2");
+
+                getPlayer1();
+                getPlayer2();
+                $("#activityLog").append(
+                    '<tr><td>' + "Player 1 is : " + getPlayer1() +
+                    '<tr><td>' + "Player 2 is : " + getPlayer2() +
+                    '</td></tr>'
+                );
+                $("#playerName").html(getPlayer1());
+                $("#currentPlayer").html("Player 1");
             }
         });
     }
@@ -257,7 +287,10 @@ $(document).ready(function() {
             url: "resetBoard",
             success: function(jsonObj) {
                 console.log(jsonObj);
-
+                $("#activityLog").append(
+                    '<tr><td>' + jsonObj +
+                    '</td></tr>'
+                );
                 $("#board").empty();
                 $("#gameBtn").html('Start Game');
                 $("#gameBtn").removeClass("reset");
@@ -333,6 +366,10 @@ $(document).ready(function() {
                     success: function(wormholePosP1) {
                         $("#" + player1Position + "P1").removeClass("triangleP1");
                         $("#" + (wormholePosP1) + "P1").addClass("triangleP1");
+                        $("#activityLog").append(
+                            '<tr><td>' + "Player 1 landed on a wormhole! " +
+                            '</td></tr>'
+                        );
                     }
                 });
                 break;
@@ -346,6 +383,10 @@ $(document).ready(function() {
                     success: function(wormholePosP2) {
                         $("#" + player2Position + "P2").removeClass("triangleP2");
                         $("#" + (wormholePosP2) + "P2").addClass("triangleP2");
+                        $("#activityLog").append(
+                            '<tr><td>' + "Player 2 landed on a wormhole! " +
+                            '</td></tr>'
+                        );
 
                     }
                 });
@@ -367,6 +408,10 @@ $(document).ready(function() {
                     success: function(blackholePosP1) {
                         $("#" + player1Position + "P1").removeClass("triangleP1");
                         $("#" + (blackholePosP1) + "P1").addClass("triangleP1");
+                        $("#activityLog").append(
+                            '<tr><td>' + "Player 1 landed on a blackhole! " +
+                            '</td></tr>'
+                        );
                     }
                 });
                 break;
@@ -380,6 +425,10 @@ $(document).ready(function() {
                     success: function(blackholePosP2) {
                         $("#" + player2Position + "P2").removeClass("triangleP2");
                         $("#" + (blackholePosP2) + "P2").addClass("triangleP2");
+                        $("#activityLog").append(
+                            '<tr><td>' + "Player 2 landed on a blackhole! " +
+                            '</td></tr>'
+                        );
                     }
                 });
                 break;
@@ -388,10 +437,12 @@ $(document).ready(function() {
     }
 
     function getPlayer1() {
+
         return $("#player1").val();
     }
 
     function getPlayer2() {
         return $("#player2").val();
     }
+
 });

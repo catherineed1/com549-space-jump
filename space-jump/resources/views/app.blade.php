@@ -15,7 +15,7 @@
                 <h1 name="title">Space Jump</h1><br>
                 <h6>Enter names for player 1 and player 2 and press 'start game'. When the game starts press the 'roll dice' button to take your turn.</h6>
                 <h6>To view the leaderboard press the 'leaderboard' button.</h6><br>
-        </div>
+        </div><br><br>
 
         <div class="container">
                 <div class="row">
@@ -36,13 +36,25 @@
                                         <div class="boardControl">
                                                 <button class="diceBtn" id="rollDice" >Roll dice</button><br><br>
                                                 <label id="currentPlayer"></label><br><label>  is: </label><br><label id="playerName"></label><br><br>
-                                                <label>The last roll was a: </label> <label id="diceLabel"></label><br><br>
+                                                <label id="diceLabel">Dice Rolled: </label><br><br>
                                                 <i id="diceIcon"></i>
                                         </div>
                                 </div>
                 </div>
                 <br><br>
                 <div class="row">
+                <div class="col" width="50%">
+                        <table id="activityLog" class="table">
+                                <thead>
+                                        <tr>
+                                        <th id="activityLog" scope="col">Activity Log</th><br>
+                                        </tr>
+                                </thead>
+                                <tbody> 
+                                </tbody>
+                        </table>
+                        </div>
+                        <div class="col" width="50%">
                         <table id="leaderboard" class="table">
                                 <thead>
                                         <tr>
@@ -57,6 +69,8 @@
 
                                 </tbody>
                         </table>
+                        </div>
+                       
                 </div>
         </div>
 
