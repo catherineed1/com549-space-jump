@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('num_of_games_played');
             $table->integer('num_of_games_won');
             $table->integer('num_of_games_lost');
-            $table->integer('win_loose_ratio');
+            $table->integer('win_lose_ratio');
         });
     }
 

@@ -31,7 +31,7 @@ $(document).ready(function() {
                             '</td><td>' + val.num_of_games_played +
                             '</td><td>' + val.num_of_games_won +
                             '</td><td>' + val.num_of_games_lost +
-                            '</td><td>' + val.win_loose_ratio +
+                            '</td><td>' + val.win_lose_ratio +
                             '</td></tr>'
                         );
 

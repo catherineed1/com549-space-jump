@@ -34,10 +34,11 @@
                                 </div>
                                 <div class="col">
                                         <div class="boardControl">
-                                                <button class="diceBtn" id="rollDice" >Roll dice</button><br><br>
                                                 <label id="currentPlayer"></label><br><label>  is: </label><br><label id="playerName"></label><br><br>
                                                 <label id="diceLabel">Dice Rolled: </label><br><br>
-                                                <i id="diceIcon"></i>
+                                                <i id="diceIcon"></i><br><br>
+                                                <br>
+                                                <button class="diceBtn" id="rollDice" >Roll dice</button><br><br>
                                         </div>
                                 </div>
                 </div>

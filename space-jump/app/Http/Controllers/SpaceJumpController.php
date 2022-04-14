@@ -63,63 +63,83 @@ class SpaceJumpController extends Controller
     }
 
     public function getCurrentDBInfo(){
-        return DB::table('player')->orderBy('win_loose_ratio', 'desc')->get();
+        return DB::table('player')->orderBy('win_lose_ratio', 'desc')->get();
     }
+
+    public function updateDBPlayerName($player){ 
+        DB::table('player')->insert(
+            ['player_name' => $player, 
+            'num_of_games_played' => 0, 
+            'num_of_games_won' => 0, 
+            'num_of_games_lost' => 0,
+            'win_lose_ratio' => 0]);
+
+    }
+
+    public function updateDBGamesPlayed($player){
+        DB::table('player')->where('player_name', $player)->update(
+            ['num_of_games_played' => DB::raw('num_of_games_played+1')]);
+    }
+
+    public function updateDBGamesWon($player){
+        DB::table('player')->where('player_name', $player)->update(
+            ['num_of_games_won' => DB::raw('num_of_games_won+1')]);
+    }
+
+    public function updateDBGamesLost($player){
+        DB::table('player')->where('player_name', $player)->update(
+            ['num_of_games_lost' => DB::raw('num_of_games_lost+1')]);
+        
+    }
+
+    public function updateDBWinLoseRatio($player){
+        DB::table('player')->where('player_name', $player)->update(
+            ['win_lose_ratio' => DB::raw('(num_of_games_won/num_of_games_played)*100')]);
+        
+    }
+
 
     public function updateDBPlayer1(Request $request){
         $player1 = $request->get("player1");
         $player2 = $request->get("player2");
-        updateDBPlayerName($player1);
-        updateDBGamesPlayed($player1);
-        updateDBGamesWon($player1);
-        updateDBGamesLost($player2);
-        updateDBWinLooseRatio($player1);
-        updateDBWinLooseRatio($player2);
-
+       
+        $this->userExists($player1, $player2);
+        $this->updateDBGamesPlayed($player1);
+        $this->updateDBGamesWon($player1);
+        $this->updateDBGamesLost($player2);
+        $this->updateDBWinLoseRatio($player1);
+       
         return 'Player 1 updated';
     }
 
     public function updateDBPlayer2(Request $request){
         $player1 = $request->get("player1");
         $player2 = $request->get("player2");
-        updateDBPlayerName($player2);
-        updateDBGamesPlayed($player2);
-        updateDBGamesWon($player2);
-        updateDBGamesLost($player1);
-        updateDBWinLooseRatio($player1);
-        updateDBWinLooseRatio($player2);
+
+        $this->userExists($player1, $player2);
+        $this->updateDBGamesPlayed($player2);
+        $this->updateDBGamesWon($player2);
+        $this->updateDBGamesLost($player1);
+        $this->updateDBWinLoseRatio($player2);
 
         return 'Player 2 updated';
         
     }
 
-    public function updateDBPlayerName($player){
-        Player::table('player')->insert(['player_name' => DB::raw($player)]);
-        return $player;
-    }
+    public function userExists($player1 , $player2){
+        //$user1 = DB::table('player')->where('player_name', $player1)->get();
+        $count1 = DB::table('player')->where('player_name', $player1)->count();
+        $count2 = DB::table('player')->where('player_name', $player2)->count();
+       // $user2 = DB::table('player')->where('player_name', $player2)->get();
 
-    public function updateDBGamesPlayed($player){
-        Player::table('player')->where('player_name', $player)->update(['num_of_games_played' => DB::raw('num_of_games_played+1')]);
-    }
+        if($count1 == 0){
+            $this->updateDBPlayerName($player1);
+        }
 
-    public function updateDBGamesWon($player){
-        Player::table('player')->where('player_name', $player)->update(['num_of_games_won' => DB::raw('num_of_games_won+1')]);
-    }
+        if($count2 == 0){
+            $this->updateDBPlayerName($player2);
+        }
 
-    public function updateDBGamesLost(){
-        Player::table('player')->where('player_name', $player)->update(['num_of_games_lost' => DB::raw('num_of_games_lost+1')]);
-        
-    }
-
-    public function updateDBWinLooseRatio(){
-        Player::table('player')->where('player_name', $player)->update(['win_loose_ratio' => DB::raw('(num_of_games_won/num_of_games_played)*100')]);
-        
-    }
-
-    public function testUpdate(){
-        Player::table('player')->where('player_name', 'Bill')->update(array(
-            'num_of_games_played'=>11, 'num_of_games_won'=> 6, 'num_of_games_lost'=>5, 'win_loose_ratio'=>55
-));
     }
 
 
